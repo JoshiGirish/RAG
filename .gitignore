@@ -1,0 +1,5 @@
+# Maven build directories
+/target/
+
+# Maven wrapper jar files (if you use the Maven Wrapper)
+.mvn/
