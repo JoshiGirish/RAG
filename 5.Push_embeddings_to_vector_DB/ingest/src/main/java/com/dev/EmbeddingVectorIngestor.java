@@ -17,12 +17,12 @@ public class EmbeddingVectorIngestor {
     
     public static void main(String[] args) {
         EmbeddingsGeneratorClient embeddingGeneratorClient = new EmbeddingsGeneratorClient();
-        String input = "An apple a day, keeps the doctor away!";
+        String input = "Sun rises from the east.";
         float[] vectorEmbedding = embeddingGeneratorClient.generateEmbedding(input);
 
         // Now build the point
         PointStruct point = PointStruct.newBuilder()
-        .setId(id(1))               // or uuid(), or num(42L), ...
+        .setId(id(4))               // or uuid(), or num(42L), ...
         .setVectors(vectors(vectorEmbedding))        // ← this is the key mapping
         .putAllPayload(Map.of(
             "text",     value(input),
