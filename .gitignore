@@ -1,5 +1,117 @@
-# Maven build directories
-/target/
+# ----------------------
+# OS files
+# ----------------------
+.DS_Store
+Thumbs.db
 
-# Maven wrapper jar files (if you use the Maven Wrapper)
+# ----------------------
+# Logs
+# ----------------------
+*.log
+
+# ----------------------
+# Environment files
+# ----------------------
+.env
+.env.*
+
+# ==================================================
+# Java
+# ==================================================
+
+# Compiled class files
+*.class
+
+# Packaged files
+*.jar
+*.war
+*.ear
+
+# Build directories
+target/
+build/
+out/
+lib/
+bin/
+
+# Maven
 .mvn/
+dependency-reduced-pom.xml
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# Java crash logs
+hs_err_pid*
+
+# ==================================================
+# Python
+# ==================================================
+
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+share/
+lib64
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+*pyvenv*
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type checker
+.mypy_cache/
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Python version
+.python-version
+
+# ==================================================
+# IDEs
+# ==================================================
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/private/
+
+# ==================================================
+# Misc
+# ==================================================
+
+tmp/
+temp/
+*.swp
