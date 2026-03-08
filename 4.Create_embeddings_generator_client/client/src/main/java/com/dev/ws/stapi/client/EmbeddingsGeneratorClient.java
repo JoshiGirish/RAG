@@ -1,4 +1,5 @@
 package com.dev.ws.stapi.client;
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,11 +9,11 @@ import java.net.URL;
 
 public class EmbeddingsGeneratorClient {
 
-    public static void main(String[] args) {
+    public float[] generateEmbedding(String input) {
         try {
             // 1. Prepare the JSON payload using Jettison
             JSONObject jsonPayload = new JSONObject();
-            jsonPayload.put("input", "substratus.ai provides the best LLM tools");
+            jsonPayload.put("input", input);
             jsonPayload.put("model", "all-MiniLM-L6-v2");
 
             // 2. Create connection
@@ -27,8 +28,8 @@ public class EmbeddingsGeneratorClient {
 
             // 4. Write JSON payload
             try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonPayload.toString().getBytes("utf-8");
-                os.write(input, 0, input.length);
+                byte[] req = jsonPayload.toString().getBytes("utf-8");
+                os.write(req, 0, req.length);
             }
 
             // 5. Get response code
@@ -50,7 +51,20 @@ public class EmbeddingsGeneratorClient {
                     System.out.println(response.toString());
                     
                     JSONObject jsonResponse = new JSONObject(response.toString());
-                    // ... work with jsonResponse ...
+                    if(jsonResponse.has("data")){
+                        JSONArray dataArray =  jsonResponse.getJSONArray("data");
+                        for(int i=0; i<dataArray.length(); i++){
+                            JSONObject jsonObj = dataArray.getJSONObject(i);
+                            if(jsonObj.has("embedding")){
+                                JSONArray embeddingArray = jsonObj.getJSONArray("embedding");
+                                float[] vector = new float[embeddingArray.length()];
+                                for (int j = 0; j < embeddingArray.length(); j++) {
+                                    vector[j] = (float) embeddingArray.getDouble(j);   // important: getDouble() → cast to float
+                                }
+                                return vector;
+                            }
+                        }
+                    }
                 }
             } 
             else {
@@ -70,5 +84,6 @@ public class EmbeddingsGeneratorClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
