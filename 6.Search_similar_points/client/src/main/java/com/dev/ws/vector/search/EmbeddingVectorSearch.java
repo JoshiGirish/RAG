@@ -14,14 +14,14 @@ public class EmbeddingVectorSearch {
     
     public static void main(String[] args) {
         EmbeddingsGeneratorClient embeddingGeneratorClient = new EmbeddingsGeneratorClient();
-        String input = "Green earth initiative is dope.";
+        String input = "What do you know about mathematics?";
         float[] vectorEmbedding = embeddingGeneratorClient.generateEmbedding(input);
 
         try{
             try (QdrantClient vectorDBclient = new QdrantClient(QdrantGrpcClient.newBuilder("localhost", 6334, false).build())) {
                 List<ScoredPoint> searchResult =
                 vectorDBclient.queryAsync(QueryPoints.newBuilder()
-                                .setCollectionName("test-collection")
+                                .setCollectionName("sectorDB")
                                 .setLimit(3)
                                 .setQuery(nearest(vectorEmbedding))
                                 .build()).get();

@@ -17,16 +17,16 @@ public class EmbeddingVectorIngestor {
     
     public static void main(String[] args) {
         EmbeddingsGeneratorClient embeddingGeneratorClient = new EmbeddingsGeneratorClient();
-        String input = "Sun rises from the east.";
+        String input = "Mathematics is the language of the universe.";
         float[] vectorEmbedding = embeddingGeneratorClient.generateEmbedding(input);
 
         // Now build the point
         PointStruct point = PointStruct.newBuilder()
-        .setId(id(4))               // or uuid(), or num(42L), ...
+        .setId(id(5))               // or uuid(), or num(42L), ...
         .setVectors(vectors(vectorEmbedding))        // ← this is the key mapping
         .putAllPayload(Map.of(
             "text",     value(input),
-            "model",    value("all-MiniLM-L6-v2"),
+            "model",    value("nomic-embed-text"),
             "source",   value("api"),
             "timestamp", value(System.currentTimeMillis())
         ))
@@ -36,7 +36,7 @@ public class EmbeddingVectorIngestor {
             try (QdrantClient vectorDBclient = new QdrantClient(QdrantGrpcClient.newBuilder("localhost", 6334, false).build())) {
                 // Upsert
                 UpdateResult result = vectorDBclient.upsertAsync(
-                "test-collection",
+                "sectorDB",
                 List.of(point)
                 ).get();
         

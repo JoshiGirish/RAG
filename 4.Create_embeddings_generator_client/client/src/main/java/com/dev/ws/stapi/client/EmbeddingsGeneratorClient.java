@@ -14,10 +14,10 @@ public class EmbeddingsGeneratorClient {
             // 1. Prepare the JSON payload using Jettison
             JSONObject jsonPayload = new JSONObject();
             jsonPayload.put("input", input);
-            jsonPayload.put("model", "all-MiniLM-L6-v2");
+            jsonPayload.put("model", "nomic-embed-text");
 
             // 2. Create connection
-            URL url = new URL("http://localhost:8080/v1/embeddings");
+            URL url = new URL("http://localhost:8081/v1/embeddings");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             // 3. Configure connection for POST
