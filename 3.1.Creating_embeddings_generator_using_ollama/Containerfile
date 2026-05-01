@@ -1,0 +1,17 @@
+FROM redhat/ubi9:latest
+
+RUN dnf install -y zstd && dnf clean all
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
+# Start server in background, pull model, then stop
+# RUN ollama serve & \
+#     sleep 12 && \
+#     ollama pull qwen2.5:1.5b && \
+#     ollama pull nomic-embed-text && \
+#     pkill ollama || true
+
+EXPOSE 11434
+
+ENTRYPOINT ["ollama", "serve"]
+
+

@@ -17,12 +17,20 @@ public class EmbeddingVectorIngestor {
     
     public static void main(String[] args) {
         EmbeddingsGeneratorClient embeddingGeneratorClient = new EmbeddingsGeneratorClient();
+<<<<<<< Updated upstream
         String input = "Mathematics is the language of the universe.";
+=======
+        String input = "Shinigamis like apple.";
+>>>>>>> Stashed changes
         float[] vectorEmbedding = embeddingGeneratorClient.generateEmbedding(input);
 
         // Now build the point
         PointStruct point = PointStruct.newBuilder()
+<<<<<<< Updated upstream
         .setId(id(5))               // or uuid(), or num(42L), ...
+=======
+        .setId(id(6))               // or uuid(), or num(42L), ...
+>>>>>>> Stashed changes
         .setVectors(vectors(vectorEmbedding))        // ← this is the key mapping
         .putAllPayload(Map.of(
             "text",     value(input),

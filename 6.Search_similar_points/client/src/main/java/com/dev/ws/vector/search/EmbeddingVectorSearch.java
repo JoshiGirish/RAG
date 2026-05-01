@@ -14,7 +14,11 @@ public class EmbeddingVectorSearch {
     
     public static void main(String[] args) {
         EmbeddingsGeneratorClient embeddingGeneratorClient = new EmbeddingsGeneratorClient();
+<<<<<<< Updated upstream
         String input = "What do you know about mathematics?";
+=======
+        String input = "Death Note is an anime on Shinigamis.";
+>>>>>>> Stashed changes
         float[] vectorEmbedding = embeddingGeneratorClient.generateEmbedding(input);
 
         try{
