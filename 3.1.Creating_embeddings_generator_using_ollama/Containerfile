@@ -1,17 +1,18 @@
-FROM redhat/ubi9:latest
+FROM registry.access.redhat.com/ubi9:latest
 
-RUN dnf install -y zstd && dnf clean all
-RUN curl -fsSL https://ollama.com/install.sh | sh
+# Install dependencies
+RUN dnf install -y \
+        zstd \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf
 
-# Start server in background, pull model, then stop
-# RUN ollama serve & \
-#     sleep 12 && \
-#     ollama pull qwen2.5:1.5b && \
-#     ollama pull nomic-embed-text && \
-#     pkill ollama || true
+# Install Ollama safely (avoid piping directly to shell)
+RUN curl -fsSL https://ollama.com/install.sh -o install.sh \
+    && bash install.sh \
+    && rm -f install.sh
 
+# Expose Ollama default port
 EXPOSE 11434
 
+# Run Ollama
 ENTRYPOINT ["ollama", "serve"]
-
-

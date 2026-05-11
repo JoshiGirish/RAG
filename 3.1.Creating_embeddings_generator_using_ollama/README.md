@@ -16,3 +16,12 @@ podman exec ollama-container ollama pull qwen2.5:1.5b
 
   ## Pull embedding model
 podman exec ollama-container ollama pull nomic-embed-text
+
+# Test Ollama
+curl http://localhost:11434/api/generate \
+  -d '{
+    "model": "gemma-4-E4b-it.Q4_K_M.gguf",
+    "prompt": "Who discovered gravity?",
+    "stream": false
+  }'
+  
