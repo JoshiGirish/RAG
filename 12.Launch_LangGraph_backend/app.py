@@ -1,6 +1,6 @@
 from typing import TypedDict
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
@@ -55,11 +55,14 @@ def home():
     return {"status": "running"}
 
 
-@app.get("/chat")
-def chat(msg: str):
+@app.post("/chat")
+async def chat(request: Request):
     """Process a chat message through the LangGraph workflow."""
+    msg = await request.body()
+    msg = msg.decode("utf-8")
+
     result = graph.invoke({
         "input": msg
     })
 
-    return result
+    return result["output"]
